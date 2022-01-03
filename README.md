@@ -16,6 +16,7 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
+Available on: https://serene-castle-44537.herokuapp.com
 
 For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
 
