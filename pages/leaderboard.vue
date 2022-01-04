@@ -154,6 +154,7 @@ body {
   margin-left: auto;
   position: relative;
   height: 524px;
+  background-color: #0a1010;
 }
 
 #bottomContainer_2 {
