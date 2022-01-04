@@ -1,18 +1,19 @@
 <template>
-  <div id="outerContainer">
-    <div id="contentContainer">
-      <div id="content">
-        <img
-          id="globe"
-          src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/leaderboards/globe.png"
-          width="339"
-          height="339"
-          border="0"
-        />
-        <h1>Leaderboard</h1>
-        <!-- <h2 id="leaderboard_type">Top Players by Core MMR</h2> -->
-        <div id="regionSelect">
-          <!-- <span
+  <div>
+    <div id="outerContainer">
+      <div id="contentContainer">
+        <div id="content">
+          <img
+            id="globe"
+            src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/leaderboards/globe.png"
+            width="339"
+            height="339"
+            border="0"
+          />
+          <h1>Leaderboard</h1>
+          <!-- <h2 id="leaderboard_type">Top Players by Core MMR</h2> -->
+          <div id="regionSelect">
+            <!-- <span
             ><a class="unselected_division" href="#americas-0"
               >Americas</a
             ></span
@@ -24,37 +25,44 @@
             ><a class="unselected_division" href="#se_asia-0">SE Asia</a></span
           >
           <span><a class="selected_division" href="#china-0">China</a></span> -->
-        </div>
-        <div style="position: relative; z-index: 2">
-          <table
-            style="position: relative; z-index: 2; margin: 0 auto"
-            border="2"
-            bordercolor="#3b3a38"
-            cellspacing="0"
-            cellpadding="2"
-          >
-            <thead>
-              <tr>
-                <th align="center">Rank</th>
-                <th valign="middle" width="400" align="left">
-                  &nbsp;&nbsp;Player
-                </th>
-                <th valign="right" width="400" align="left">&nbsp;&nbsp;MMR</th>
-              </tr>
-            </thead>
-            <tbody id="leaderboard_body">
-              <tr v-for='(player,index)  in allData' :bgcolor=" index % 2 ? '#181818' : '#202020'">
-                <td align="center">{{index + 1}}</td>
-                <td
-                  align="left"
-                  style="overflow: hidden; max-width: 300px"
-                  width="300"
+          </div>
+          <div style="position: relative; z-index: 2">
+            <table
+              style="position: relative; z-index: 2; margin: 0 auto"
+              border="2"
+              bordercolor="#3b3a38"
+              cellspacing="0"
+              cellpadding="2"
+            >
+              <thead>
+                <tr>
+                  <th align="center">Rank</th>
+                  <th valign="middle" width="400" align="left">
+                    &nbsp;&nbsp;Player
+                  </th>
+                  <th valign="right" width="400" align="left">
+                    &nbsp;&nbsp;MMR
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="leaderboard_body">
+                <tr
+                  v-for="(player, index) in allData"
+                  :bgcolor="index % 2 ? '#181818' : '#202020'"
                 >
-                  &nbsp;&nbsp;<span class="player_name">{{player.displayName}}</span>
-                </td>
-                <td align="left">&nbsp;&nbsp;{{player.mmr}}</td>
-              </tr>
-              <!-- <tr bgcolor="#202020">
+                  <td align="center">{{ index + 1 }}</td>
+                  <td
+                    align="left"
+                    style="overflow: hidden; max-width: 300px"
+                    width="300"
+                  >
+                    &nbsp;&nbsp;<span class="player_name">{{
+                      player.displayName
+                    }}</span>
+                  </td>
+                  <td align="left">&nbsp;&nbsp;{{ player.mmr }}</td>
+                </tr>
+                <!-- <tr bgcolor="#202020">
                 <td align="center">2</td>
                 <td
                   align="left"
@@ -66,11 +74,21 @@
                 </td>
                 <td align="left">&nbsp;&nbsp;9998</td>
               </tr> -->
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
+          <div id="faqArea">
+            <p><br /></p>
+          </div>
         </div>
-        <div id="faqArea">
-          <p><br /></p>
+      </div>
+    </div>
+    <div id="bottomContainer_1">
+      <div id="bottomContainer_2">
+        <div id="logoValve">
+        </div>
+        <div id="legal">
+          © Team Maji Taiko
         </div>
       </div>
     </div>
@@ -81,16 +99,18 @@
 export default {
   name: "LeaderboardPage",
   data() {
-      return {
-          allData:null
-      }
+    return {
+      allData: null,
+    };
   },
   mounted() {
     document.getElementsByTagName("BODY")[0].style.margin = 0;
     this.$axios
       .get(`https://hangman-backend.mingern789.repl.co/players`)
       .then((response) => {
-        this.allData = response.data.sort((a, b) => parseFloat(b.mmr) - parseFloat(a.mmr));;
+        this.allData = response.data.sort(
+          (a, b) => parseFloat(b.mmr) - parseFloat(a.mmr)
+        );
       })
       .catch(function (err) {
         console.log("stw");
@@ -152,7 +172,7 @@ body {
   background-repeat: repeat-y;
   background-position: top center;
   background-color: #0a1010;
-  padding-bottom:6rem;
+  padding-bottom: 6rem;
 }
 #contentContainer {
   background-image: url("https://cdn.cloudflare.steamstatic.com/apps/dota2/images//leaderboards/bg_top.jpg");
