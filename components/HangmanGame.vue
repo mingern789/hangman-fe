@@ -103,7 +103,7 @@ export default {
           );
           this.$store.commit('SET_ID', filteredData[0]._id)
           this.playerData = filteredData[0];
-          console.log(this.playerData)
+          // console.log(this.playerData)
         })
         .catch(function (err) {
           console.log("stw");
