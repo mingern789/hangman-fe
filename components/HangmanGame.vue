@@ -112,6 +112,7 @@ export default {
   },
   methods: {
     toLeaderBoard() {
+      this.$confetti.stop();
       this.$router.push('/leaderboard')
     },
     //Can enter guesses with a keyboard, but it doesn't work super great because you need to be focusing a non-disabled element to use it currently. Needs some refinement.
