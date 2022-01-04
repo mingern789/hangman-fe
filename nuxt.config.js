@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "Hangman game, made by Pierce.",
+    title: "Hangman game, powered by Team Maji Taiko",
     htmlAttrs: {
       lang: "en",
     },

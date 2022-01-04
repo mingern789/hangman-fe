@@ -2,6 +2,7 @@ export const state = () => ({
   user: {
     loggedIn: false,
     data: null,
+    playerId: null
   },
 });
 
@@ -11,6 +12,9 @@ export const mutations = {
   },
   SET_USER(state, data) {
     state.user.data = data;
+  },
+  SET_ID(state, data) {
+    state.user.playerId = data;
   },
 };
 

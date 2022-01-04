@@ -8,6 +8,11 @@
         {{ btnText }}
       </button>
     </form>
+    <p>Don't have an account? Register <NuxtLink to="/register">here.</NuxtLink></p>
+    <p>Or if you haven't logged out but accidentally refreshed click <NuxtLink to="/">here</NuxtLink>
+    to get back in the game. </p>
+    <br>
+    <p>PS: Sorry if the pages look like trash, the developer already spent most of his sanity getting the programming logic right.</p>
   </div>
 </template>
 

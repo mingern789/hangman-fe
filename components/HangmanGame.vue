@@ -34,20 +34,20 @@
 
     <div class="status">
       <p>{{ message }}</p>
-      <p>Player: {{user.displayName}}</p>
+      <p>Player: {{ user.displayName }}</p>
     </div>
 
     <button id="new-game" @click="newGame" :class="{ highlight: gameOver }">
       New game
     </button>
-    <button id="log-out" @click="logout" >
-      Log Out
+    <button id="leaderboard" @click='toLeaderBoard' >
+      Leaderboards
     </button>
+    <button id="log-out" @click="logout">Log Out</button>
   </div>
 </template>
 
 <script>
-
 // Change this if you want the possibility of longer or shorter puzzles.
 const maxLength = 40; // (Typically, the lower this number, the harder the puzzle.)
 
@@ -59,7 +59,6 @@ const defaultStrikes = new Array(allowedStrikes).fill({
   guess: "",
 });
 
-
 export default {
   name: "NuxtTutorial",
   data: () => ({
@@ -70,6 +69,8 @@ export default {
     guesses: [],
     strikes: [...defaultStrikes],
     gameOver: false,
+    playerData: null,
+    allData: null,
   }),
   mounted() {
     fetch("https://type.fit/api/quotes")
@@ -81,8 +82,38 @@ export default {
         this.quotes = fetchedQuotes;
         this.pickAQuote();
       });
+    if (this.$store.state.user.playerId) {
+      this.$axios
+        .get(
+          `https://hangman-backend.mingern789.repl.co/players/${this.$store.state.user.playerId}`
+        )
+        .then((response) => {
+          this.playerData = response.data;
+        })
+        .catch(function (err) {
+          console.log("stw");
+        });
+    } else {
+      this.$axios
+        .get(`https://hangman-backend.mingern789.repl.co/players`)
+        .then((response) => {
+          this.allData = response.data;
+          const filteredData = this.allData.filter(
+            (x) => x.email == this.user.email
+          );
+          this.$store.commit('SET_ID', filteredData[0]._id)
+          this.playerData = filteredData[0];
+          console.log(this.playerData)
+        })
+        .catch(function (err) {
+          console.log("stw");
+        });
+    }
   },
   methods: {
+    toLeaderBoard() {
+      this.$router.push('/leaderboard')
+    },
     //Can enter guesses with a keyboard, but it doesn't work super great because you need to be focusing a non-disabled element to use it currently. Needs some refinement.
     handleKeyPress(e) {
       const key = e.key.toUpperCase();
@@ -118,7 +149,45 @@ export default {
       }
       if (this.strikeout || this.puzzleComplete) {
         this.gameOver = true;
-        if (this.puzzleComplete) this.fireEmAll();
+
+        if (this.puzzleComplete) {
+          this.fireEmAll();
+          let tempPlayData = this.playerData;
+          tempPlayData.playHistory.push({ result: "win", strikes: 0 });
+          this.$axios
+            .post(
+              `https://hangman-backend.mingern789.repl.co/players/${this.$store.state.user.playerId}`,
+              {
+                mmr: tempPlayData.mmr + 5,
+                playHistory: tempPlayData.playHistory,
+              }
+            )
+            .then((response) => {
+              console.log(response);
+            })
+            .catch(function (error) {
+              alert(error);
+              return;
+            });
+        } else {
+          let tempPlayData = this.playerData;
+          tempPlayData.playHistory.push({ result: "loss", strikes: 4 });
+          this.$axios
+            .post(
+              `https://hangman-backend.mingern789.repl.co/players/${this.$store.state.user.playerId}`,
+              {
+                mmr: tempPlayData.mmr - 5,
+                playHistory: tempPlayData.playHistory,
+              }
+            )
+            .then((response) => {
+              console.log(response);
+            })
+            .catch(function (error) {
+              alert(error);
+              return;
+            });
+        }
       }
     },
     newGame() {
@@ -134,18 +203,17 @@ export default {
       this.$confetti.start();
     },
     logout() {
-    this.$fire
-      .auth
-      .signOut()
-      .then(() => {
-        alert('Successfully logged out');
-        this.$router.push('/login');
-      })
-      .catch(error => {
-        alert(error.message);
-        this.$router.push('/');
-      });
-  },
+      this.$fire.auth
+        .signOut()
+        .then(() => {
+          alert("Successfully logged out");
+          this.$router.push("/login");
+        })
+        .catch((error) => {
+          alert(error.message);
+          this.$router.push("/");
+        });
+    },
   },
 
   computed: {
@@ -178,8 +246,8 @@ export default {
       return "😬 Unforeseen error state, maybe try a new game?";
     },
     user() {
-      return this.$fire.auth.currentUser
-    }
+      return this.$fire.auth.currentUser;
+    },
   },
 };
 </script>
