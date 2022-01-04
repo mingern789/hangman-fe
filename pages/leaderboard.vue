@@ -716,12 +716,6 @@ a.navBarItem:hover {
   font-family: "Radiance";
 }
 
-*,
-html,
-body,
-td {
-  font-family: arial, helvetica, sans-serif;
-}
 
 body {
   margin: 0;
