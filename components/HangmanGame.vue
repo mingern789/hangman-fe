@@ -207,6 +207,7 @@ export default {
       this.$fire.auth
         .signOut()
         .then(() => {
+          this.$confetti.stop();
           alert("Successfully logged out");
           this.$router.push("/login");
         })
