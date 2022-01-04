@@ -90,8 +90,7 @@ export default {
     this.$axios
       .get(`https://hangman-backend.mingern789.repl.co/players`)
       .then((response) => {
-        this.allData = response.data;
-        console.log(this.allData);
+        this.allData = response.data.sort((a, b) => parseFloat(b.mmr) - parseFloat(a.mmr));;
       })
       .catch(function (err) {
         console.log("stw");
