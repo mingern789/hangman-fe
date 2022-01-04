@@ -85,11 +85,8 @@
     </div>
     <div id="bottomContainer_1">
       <div id="bottomContainer_2">
-        <div id="logoValve">
-        </div>
-        <div id="legal">
-          © Team Maji Taiko
-        </div>
+        <div id="logoValve"></div>
+        <div id="legal">© Team Maji Taiko</div>
       </div>
     </div>
   </div>
@@ -168,12 +165,21 @@ body {
   width: 938px;
 }
 
+@media screen and (max-width: 1023px) {
+  #bottomContainer_2 {
+    width: 100%;
+  }
+
+  #content {
+    width: 100% !important; 
+  }
+}
+
 #outerContainer {
   background-image: url("https://cdn.cloudflare.steamstatic.com/apps/dota2/images//leaderboards/bg_repeat.jpg");
   background-repeat: repeat-y;
   background-position: top center;
   background-color: #0a1010;
-  padding-bottom: 6rem;
 }
 #contentContainer {
   background-image: url("https://cdn.cloudflare.steamstatic.com/apps/dota2/images//leaderboards/bg_top.jpg");
