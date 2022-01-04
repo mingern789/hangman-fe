@@ -34,15 +34,20 @@
 
     <div class="status">
       <p>{{ message }}</p>
+      <p>Player: {{user.displayName}}</p>
     </div>
 
     <button id="new-game" @click="newGame" :class="{ highlight: gameOver }">
       New game
     </button>
+    <button id="log-out" @click="logout" >
+      Log Out
+    </button>
   </div>
 </template>
 
 <script>
+
 // Change this if you want the possibility of longer or shorter puzzles.
 const maxLength = 40; // (Typically, the lower this number, the harder the puzzle.)
 
@@ -128,6 +133,19 @@ export default {
     fireEmAll() {
       this.$confetti.start();
     },
+    logout() {
+    this.$fire
+      .auth
+      .signOut()
+      .then(() => {
+        alert('Successfully logged out');
+        this.$router.push('/login');
+      })
+      .catch(error => {
+        alert(error.message);
+        this.$router.push('/');
+      });
+  },
   },
 
   computed: {
@@ -159,6 +177,9 @@ export default {
       //You can never be too safe ¯\_(ツ)_/¯
       return "😬 Unforeseen error state, maybe try a new game?";
     },
+    user() {
+      return this.$fire.auth.currentUser
+    }
   },
 };
 </script>
