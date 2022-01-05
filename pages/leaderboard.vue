@@ -355,10 +355,6 @@ td {
   border: 0;
   top: -1px;
 }
-
-#navBar div.external_img {
-}
-
 a.navBarItem:link,
 a.navBarItem:active,
 a.navBarItem:visited {
@@ -672,10 +668,8 @@ a.navBarItem:hover {
   text-transform: uppercase;
   text-shadow: 2px 2px 5px #000000;
   -webkit-text-stroke: 0.2px;
-  text-stroke: 0.2px;
   font-size: 15px;
   padding-top: 8px;
-  text-stroke: 0.2px;
   letter-spacing: 3px;
   -o-transition: 0.3s;
   -ms-transition: 0.3s;
@@ -854,9 +848,6 @@ form {
   margin: 0px auto 48px auto;
   text-align: center;
   color: #b0aeac;
-}
-
-.perf_timing_link {
 }
 
 .perf_timing_data {
