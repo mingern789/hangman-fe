@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div id="outerContainer">
+    <div v-if="loading" id="overlay">
+      <div id="overlay-text">Checking login status...</div>
+    </div>
+    <div v-else id="outerContainer">
       <div id="contentContainer">
         <div id="content">
           <h1>Login</h1>
@@ -50,7 +53,7 @@
         </div>
       </div>
     </div>
-    <div id="bottomContainer_1">
+    <div v-show="!loading" id="bottomContainer_1">
       <div id="bottomContainer_2">
         <div id="logoValve"></div>
         <div id="legal">© Team Maji Taiko</div>
@@ -76,12 +79,18 @@ export default {
   },
   mounted() {
     document.getElementsByTagName("BODY")[0].style.margin = 0;
+
+    let checkAuth = () => {
+      this.$router.push("/");
+    };
+    const myTimeout = setTimeout(checkAuth, 1000);
   },
   data() {
     return {
       email: null,
       password: null,
       btnText: "Login",
+      loading: true,
     };
   },
   methods: {
@@ -104,6 +113,29 @@ export default {
 </script>
 
 <style scoped>
+#overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  color: white;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: block; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #0a1010;
+  z-index: 10; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
 .submit-div {
   display: flex;
   flex-direction: row;
@@ -886,7 +918,6 @@ form {
   text-align: center;
   color: #b0aeac;
 }
-
 
 .perf_timing_data {
   text-align: left;
