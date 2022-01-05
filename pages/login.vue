@@ -81,6 +81,7 @@ export default {
     document.getElementsByTagName("BODY")[0].style.margin = 0;
 
     let checkAuth = () => {
+      this.loading = false;
       this.$router.push("/");
     };
     const myTimeout = setTimeout(checkAuth, 1000);
