@@ -82,7 +82,10 @@
             <div class="status">
               <h2>Strikes:</h2>
               <ul class="status">
-                <li v-for="strike in strikes">{{ strike.icon }}</li>
+                <li v-for="strike in strikes">
+                <!-- {{ strike.icon }} -->
+                <img :src="strike.imgUrl" height="25">
+                </li>
               </ul>
             </div>
             <div id="button-board">
@@ -105,7 +108,10 @@
             </div>
 
             <div class="status">
-              <p>{{ message }}</p>
+              <p><img v-if="strikeout" src="/don-no.webp" height="22" alt="don-chan grieving">
+              <img v-else-if="puzzleComplete" src="/don-win.webp" alt="don-chan hyped up" height="22">
+              {{ message }}</p>
+              <br><br>
               <p>Player: {{ user.displayName }}</p>
             </div>
 
@@ -127,7 +133,7 @@
     <div id="bottomContainer_1">
       <div id="bottomContainer_2">
         <div id="logoValve"></div>
-        <div id="legal">© Team Maji Taiko</div>
+        <div id="legal">© PuchyPochy</div>
       </div>
     </div>
   </div>
@@ -143,6 +149,7 @@ const allowedStrikes = 3; //If you set this and maxLength both too high, the puz
 const defaultStrikes = new Array(allowedStrikes).fill({
   icon: "⚪",
   guess: "",
+  imgUrl:"/don-icon.webp"
 });
 
 export default {
@@ -232,7 +239,7 @@ export default {
       this.guesses.push(letter);
       if (!this.currentQuote.includes(letter)) {
         this.strikes.pop();
-        this.strikes = [{ icon: "🚫", guess: letter }, ...this.strikes];
+        this.strikes = [{ icon: "🚫", guess: letter, imgUrl:"/kat-icon.webp" }, ...this.strikes];
       }
       if (this.strikeout || this.puzzleComplete) {
         this.gameOver = true;
@@ -326,9 +333,9 @@ export default {
       if (!this.gameOver) {
         return "☝️ Pick a letter";
       } else if (this.strikeout) {
-        return "❌ You lost this round. Try again?";
+        return " You lost this round. Try again?";
       } else if (this.puzzleComplete) {
-        return "🎉 You win!";
+        return " You win!";
       }
       //You can never be too safe ¯\_(ツ)_/¯
       return "😬 Unforeseen error state, maybe try a new game?";

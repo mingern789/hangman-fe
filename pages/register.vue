@@ -51,7 +51,7 @@
     <div id="bottomContainer_1">
       <div id="bottomContainer_2">
         <div id="logoValve"></div>
-        <div id="legal">© Team Maji Taiko</div>
+        <div id="legal">© PuchyPochy</div>
       </div>
     </div>
   </div>
