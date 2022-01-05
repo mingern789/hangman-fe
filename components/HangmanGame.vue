@@ -110,6 +110,7 @@
             <div class="status">
               <p><img v-if="strikeout" src="/don-no.webp" height="22" alt="don-chan grieving">
               <img v-else-if="puzzleComplete" src="/don-win.webp" alt="don-chan hyped up" height="22">
+              <img v-else src="/don-sweat.webp" alt="don-chan sweating" height="22">
               {{ message }}</p>
               <br><br>
               <p>Player: {{ user.displayName }}</p>
@@ -331,7 +332,7 @@ export default {
     },
     message() {
       if (!this.gameOver) {
-        return "☝️ Pick a letter";
+        return " Pick a letter";
       } else if (this.strikeout) {
         return " You lost this round. Try again?";
       } else if (this.puzzleComplete) {
